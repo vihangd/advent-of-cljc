@@ -23,3 +23,4 @@
 
 (deftest part-2
   (is (= answer-2 (solve-2 (input->vec input)))))
+;; trigger rescore

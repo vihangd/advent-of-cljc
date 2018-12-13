@@ -1,4 +1,4 @@
-(ns aoc.y2018.d01.transducer
+ (ns aoc.y2018.d01.transducer
   (:require [aoc.utils :as utils :refer [deftest]]
             [aoc.y2018.d01.data :refer [input answer-1 answer-2]]
             [clojure.string :as string]
@@ -24,3 +24,4 @@
 
 (deftest part-2
   (is (= answer-2 (solve-2))))
+;; trigger rescore
