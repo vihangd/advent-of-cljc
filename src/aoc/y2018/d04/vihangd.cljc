@@ -35,7 +35,7 @@
             :begins (recur action-list (first rst) (rest rst) guard-id nil)))
       action-list)))
 
-(def parsed-n-grouped
+(defn parse-n-group [data]
   (->> data
        (map parse-line)
        (sort-by (juxt :year :month :day :hour :min))
@@ -43,14 +43,16 @@
        (group-by :guard-id)))
 
 (defn solve-1 []
-  (let [minmap (->> parsed-n-grouped
+  (let [minmap (->> data
+                    parse-n-group
                     (map (fn [[k v]] {:gid k :min (->> v (mapcat :range) count) :range   (mapcat :range v) }))
                     (apply max-key :min))]
     (* (u/parse-int (:gid minmap))
        (->> minmap :range frequencies (apply max-key val) key))))
 
 (defn solve-2 []
-  (let [minmap  (->> parsed-n-grouped
+  (let [minmap  (->> data
+                     parse-n-group
                      (map (fn [[k v]] {:gid k  :freq (apply max-key val  (frequencies  (mapcat :range v) ))}))
                      (apply max-key (fn [x]  (val (:freq x)))))]
     (* (u/parse-int (:gid minmap)) (key (:freq minmap)))))
